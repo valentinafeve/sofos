@@ -1,6 +1,8 @@
-# Sofos
+# Test
 
-## Running
+## Running database
+
+> One cockroach is installed.
 
 Running cockroack
 ```bash
@@ -81,7 +83,13 @@ cd go_chi
 
 ## Running Web Server
 
+>  Once Node and npm installed
+
+
 ```bash
+
+npm install -g @vue/cli
+
 cd vue_app
 
 npm install
