@@ -9,6 +9,8 @@ Running cockroack
 cockroach start --insecure  
 ```
 
+Now cockroach is running on the port 8080.
+
 Running sql shell
 ```bash
 cockroach sql --insecure 
@@ -80,6 +82,19 @@ cd go_chi
 ./main
 
 ```
+Now go is running on the port 3000.
+
+
+> In order to rebuild the executable.
+
+```bash
+
+go get -u github.com/go-chi/chi
+
+go get -u github.com/lib/pq
+
+```
+
 
 ## Running Web Server
 
@@ -97,4 +112,7 @@ npm install
 npm run serve
 ```
 
-> The application will be available at the showed host. 
+Now go is running on the port 8081.
+
+
+> The web application will be available at the showed host. 

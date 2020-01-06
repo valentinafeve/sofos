@@ -30,7 +30,7 @@ export default {
   methods:{
     view_queries(){
       var thisa = this;
-      axios.get('http://localhost:3000/viewed_domains')
+      axios.get(GO_SERVER+'/viewed_domains')
       .then(function (response) {
         // Saving response
         thisa.history = response.data;

@@ -159,7 +159,7 @@ export default {
       this.visiblePanel = false;
       this.failedStatus = false;
       var thisa = this;
-      axios.get('http://localhost:3000/query_domain?domain='+this.domain)
+      axios.get(GOSERVER+'/query_domain?domain='+this.domain)
       .then(function (response) {
         thisa.info = response.data;
         console.log(thisa.info)

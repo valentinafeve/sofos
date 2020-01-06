@@ -39,7 +39,7 @@ func main() {
 
 	// Starting server
 	fmt.Println("Starting server on port :3000")
-	err := http.ListenAndServe(":3000", r)
+	err := http.ListenAndServeTLS(":3000", "server.crt", "server.key", r)
 	if err != nil {
 		fmt.Println("ListenAndServe:", err)
 	}
