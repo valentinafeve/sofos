@@ -1,31 +1,20 @@
 # Sofos
 
-## Executing Go Server
+## Running
 
->  Once go is installed
-
+Running cockroack
 ```bash
-
-cd go_chi
-
-./main
-
+cockroach start --insecure  
 ```
 
-## Executing Web Server
-
+Running sql shell
 ```bash
-cd vue_app
-
-npm install
-
-npm run serve
+cockroach sql --insecure 
 ```
-
 
 ## Setting Database
 
-> Once cockroach is installed
+> Execute in the shell
 
 
 ```sql
@@ -77,3 +66,27 @@ GRANT SELECT ON history_queries TO sofos_u;
 GRANT ALL ON history_queries TO sofos_u;
 GRANT ALL ON domain_info TO sofos_u;
 ```
+
+## Running Go Server
+
+>  Once go is installed
+
+```bash
+
+cd go_chi
+
+./main
+
+```
+
+## Running Web Server
+
+```bash
+cd vue_app
+
+npm install
+
+npm run serve
+```
+
+> The application will be available at the showed host. 
