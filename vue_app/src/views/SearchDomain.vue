@@ -18,24 +18,51 @@
           <div class="card">
             <div class="line">
               <div class="left title">Servers have changed</div>
-              <div class="right">{{ info.Servers_changed}}</div>
+              <div class="right" v-if="info.Servers_changed">
+                {{info.Servers_changed}}
+              </div>
+              <div v-else>
+                <div class="right text_message">
+                  Not available.
+                </div>
+              </div>
             </div>
             <div class="line">
               <div class="left title">SSL grade</div>
-              <div class="right">{{ info.SSL_grade}}</div>
+              <div class="right" v-if="info.SSL_grade">
+                {{info.SSL_grade}}
+              </div>
+              <div v-else>
+                <div class="right text_message">
+                  Not available.
+                </div>
+              </div>
             </div>
             <div class="line">
               <div class="left title">Previous SSL grade</div>
-              <div class="right">{{ info.Previous_SSL_grade }}</div>
+              <div class="right" v-if="info.Previous_SSL_grade">
+                {{info.Previous_SSL_grade}}
+              </div>
+              <div v-else>
+                <div class="right text_message">
+                  Not available.
+                </div>
+              </div>
             </div>
             <div class="line">
               <div class="left title">Is down</div>
-              <div class="right">{{ info.Is_down }}</div>
+              <div class="right">
+                {{info.Is_down}}
+              </div>
             </div>
             <div class="logo">
               <div class="title"><p>Logo</p></div>
               <div v-if="info.Logo">
-                <img :src="info.Logo" alt="">
+                <div>
+                  
+                </div>
+                <img :src="info.Logo" alt="Logo is not available">
+
               </div>
               <div v-else>
                 <div class="message">

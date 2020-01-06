@@ -17,6 +17,8 @@ cd go_chi
 ```bash
 cd vue_app
 
+npm install
+
 npm run serve
 ```
 
