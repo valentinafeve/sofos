@@ -1,4 +1,6 @@
-# Test
+# Sofos
+
+[![Watch the video](https://ibb.co/fdYVbnV)](https://youtu.be/aGuEySRVbCM)
 
 ## Running database
 
