@@ -44,7 +44,7 @@ export default {
       axios.get(GOSERVER+'/viewed_domains')
       .then(function (response) {
         thisa.history = response.data;
-        if (thisa.history.length > 0 ){
+        if (thisa.history.Queries != null ){
          thisa.showTable = true
         }
         else{
@@ -52,6 +52,7 @@ export default {
         }
       })
       .catch(function (error) {
+        console.log(error)
         thisa.failedStatus = true
         thisa.message = "Error connecting with the server"
       })

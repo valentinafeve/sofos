@@ -8,8 +8,12 @@ import(
 )
 
 func Viewed_domains() info.History{
+
+
   var history info.History
   var queries []info.Query
+  history.Queries = queries;
+
   db, err := sql.Open("postgres","postgresql://sofos_u@archievaldo:26257/sofos?sslmode=disable")
   if err != nil {
     println("Error connectiong to the database")
