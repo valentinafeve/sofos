@@ -1,1 +1,1 @@
-GO_SERVER="https://localhost:3000"
+const GOSERVER="http://localhost:3000"

@@ -78,6 +78,7 @@ func Save_query(information info.Info, domain string){
 
 // Check if servers changed querying database.
 func Check_if_changed(information *info.Info, domain string){
+  (*information).First = true
   db, err := sql.Open("postgres","postgresql://sofos_u@archievaldo:26257/sofos?sslmode=disable")
   if err != nil {
     println("Error connectiong to the database")
@@ -88,21 +89,21 @@ func Check_if_changed(information *info.Info, domain string){
   if err != nil {
     fmt.Println(err)
   }
+
   defer rows.Close()
   for rows.Next() {
     var server string
     if err := rows.Scan(&server); err != nil {
         fmt.Println(err)
     }
-    cont := 0
     olds := 0
-    for _, old_server := range (*information).Servers {
+    for i, old_server := range (*information).Servers {
+    (*information).First = false
       if old_server.Address == server {
-        (*information).Servers[cont].Old=true
+        (*information).Servers[i].Old=true
         olds ++;
         break
       }
-      cont++
     }
     if len( (*information).Servers ) != olds {
       (*information).Servers_changed = true

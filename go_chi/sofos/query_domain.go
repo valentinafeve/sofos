@@ -104,13 +104,13 @@ func Query_domain(domain string) info.Info{
   page := read_load.Read_webpage(domain)
   // Loading data into structure
   println("Loading data from web...")
-  read_load.Load_from_web(page, &information)
+  read_load.Load_from_web(page, &information, domain)
 
   // Calculating lowest SSL grade
   ssl_calc.Calc_lowest_grade(&information)
-  fmt.Println(information)
 
   // Whois for each server
+  println("Loading information from each server...")
   var servers [](info.Server)
   for _, server := range information.Servers {
     s := whois(server.Address)
@@ -127,9 +127,11 @@ func Query_domain(domain string) info.Info{
   information.Previous_SSL_grade = ssl_latest
 
   // Check if there are new servers
+  println("Checking if servers have changed.")
   cr_queries.Check_if_changed(&information, domain)
 
   // Saving query into database
+  println("Saving query in database.")
   cr_queries.Save_query(information, domain)
 
   // Returning obteined information

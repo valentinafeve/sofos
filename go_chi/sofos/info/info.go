@@ -17,6 +17,7 @@ type Info struct {
   Title string
   Is_down bool
   Status string
+  First bool
 }
 
 type Query struct {

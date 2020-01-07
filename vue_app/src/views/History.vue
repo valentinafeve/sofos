@@ -1,6 +1,9 @@
 <template id="">
-  <div class="">
-    <div class="formatted_table">
+  <div class="history">
+    <div class="message showable" :class="{visible : !showTable}">
+        {{message}}
+    </div>
+    <div class="formatted_table showable" :class="{visible : showTable}">
       <table class="table">
         <thead>
           <tr>
@@ -24,20 +27,33 @@ export default {
   name: "History",
   data(){
     return {
-      history : {}
+      history : [],
+      failedStatus : false,
+      showTable: false,
+      message: "",
     }
+  },
+  computed:{
   },
   methods:{
     view_queries(){
+      this.message = ""
+      this.failedStatus = false
       var thisa = this;
-      axios.get(GO_SERVER+'/viewed_domains')
+      this.showTable = false
+      axios.get(GOSERVER+'/viewed_domains')
       .then(function (response) {
-        // Saving response
         thisa.history = response.data;
-        console.log(thisa.history);
+        if (thisa.history.length > 0 ){
+         thisa.showTable = true
+        }
+        else{
+          thisa.message = "You haven't query a domain."
+        }
       })
       .catch(function (error) {
-        console.log(error);
+        thisa.failedStatus = true
+        thisa.message = "Error connecting with the server"
       })
     }
   },
@@ -50,5 +66,19 @@ export default {
 <style media="screen">
 .formatted_table{
   margin: 30px;
+}
+.history .showable {
+  display: none;
+}
+.history .showable.visible {
+  display: block;
+}
+.history .message{
+  color: #777;
+  background: #eaeaea;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px;
+  margin-top: 30px;
 }
 </style>

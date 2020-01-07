@@ -18,12 +18,12 @@
           <div class="card">
             <div class="line">
               <div class="left title">Servers have changed</div>
-              <div class="right" v-if="info.Servers_changed">
-                {{info.Servers_changed}}
+              <div class="right text_message" v-if="info.First">
+                Still not available.
               </div>
               <div v-else>
-                <div class="right text_message">
-                  Not available.
+                <div class="right">
+                  {{info.Servers_changed}}
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@
               </div>
               <div v-else>
                 <div class="right text_message">
-                  Not available.
+                  Not provided.
                 </div>
               </div>
             </div>
@@ -45,7 +45,7 @@
               </div>
               <div v-else>
                 <div class="right text_message">
-                  Not available.
+                  Still not available.
                 </div>
               </div>
             </div>
@@ -162,7 +162,6 @@ export default {
       axios.get(GOSERVER+'/query_domain?domain='+this.domain)
       .then(function (response) {
         thisa.info = response.data;
-        console.log(thisa.info)
         thisa.isLoading = false;
         // checking if there are no errors.
         if (thisa.info.Status.length == 0){
@@ -182,7 +181,6 @@ export default {
         thisa.failedStatus = true;
         thisa.isLoading = false;
         thisa.message = "Server is not responding, check your connection."
-        console.log(error);
       })
     }
   }
