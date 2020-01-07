@@ -4,14 +4,14 @@
 
 ## Running database
 
-> One cockroach is installed.
+> Once cockroach is installed.
 
 Running cockroack
 ```bash
 cockroach start --insecure  
 ```
 
-Now cockroach is running on the port 8080.
+Now cockroach is running on port 8080.
 
 Running sql shell
 ```bash
@@ -84,7 +84,7 @@ cd go_chi
 ./main
 
 ```
-Now go is running on the port 3000.
+Now go is running on port 3000.
 
 
 > In order to rebuild the executable.
@@ -100,7 +100,7 @@ go get -u github.com/lib/pq
 
 ## Running Web Server
 
->  Once Node and npm installed
+>  Once Node and npm are installed
 
 
 ```bash
@@ -114,7 +114,7 @@ npm install
 npm run serve
 ```
 
-Now go is running on the port 8081.
+Now go is running on port 8081.
 
 
-> The web application will be available at the showed host. 
+> The web application will be available at the showed host. A Plugin for bypassing CORS may be necessary. 
