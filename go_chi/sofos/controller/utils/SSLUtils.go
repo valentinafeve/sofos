@@ -1,7 +1,7 @@
-package ssl_calc
+package utils
 
-import (
-  "../info"
+import(
+  "../../models"
 )
 
 // Calc SSl grade given a letter
@@ -23,7 +23,7 @@ func calc_SSL_val (letter string) int{
 }
 
 // Calc and set lowest SSL grade given all the informatio
-func Calc_lowest_grade(information *info.Info){
+func CalcLowestGrade(information *models.DomainInformation){
   min_val := 10000
   var min_grade string
   for _, element := range (*information).Servers {

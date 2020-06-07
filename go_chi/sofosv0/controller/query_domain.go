@@ -1,4 +1,4 @@
-package sofos
+package controller
 
 import (
   "net"
@@ -6,10 +6,6 @@ import (
   "strings"
   "io/ioutil"
   "time"
-  "./info"
-  "./read_load"
-  "./ssl_calc"
-  "./cr_queries"
   "fmt"
   _ "github.com/lib/pq"
 )

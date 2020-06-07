@@ -1,17 +1,14 @@
-package sofos
+package controller
 
 import(
   "fmt"
-  // "net/http"
-  "./info"
-  "database/sql"
+  "../models"
 )
 
-func Viewed_domains() info.History{
+func ViewedDomains() models.History{
 
-
-  var history info.History
-  var queries []info.Query
+  var history models.History
+  var queries []models.Query
   history.Queries = queries;
 
   db, err := sql.Open("postgres","postgresql://sofos_u@archievaldo:26257/sofos?sslmode=disable")
