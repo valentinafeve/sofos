@@ -33,7 +33,7 @@ SET SATABASE = sofos;
 
  
 ```sql
-CREATE TABLE Domain_info (
+CREATE TABLE DomainInformation (
     SSL_grade VARCHAR(5),
     Title VARCHAR(100),
     Is_down BOOLEAN,
@@ -42,25 +42,18 @@ CREATE TABLE Domain_info (
 ```
 
 ```sql
-CREATE TABLE History_queries (
+CREATE TABLE HistoryQueries (
     Domain VARCHAR(50),
     Latest_query TIMESTAMP
   );
 ```
  
 ```sql
-CREATE TABLE Related_servers (
+CREATE TABLE RelatedServers (
     Domain VARCHAR(50),
     Server VARCHAR(50)
   );
 ``` 
-
-```sql
-CREATE TABLE Related_servers (
-    Domain VARCHAR(50),
-    Server VARCHAR(50)
-  );
-```
 
 ```sql
 CREATE USER IF NOT EXISTS sofos_u;
