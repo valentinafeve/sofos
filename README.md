@@ -110,4 +110,4 @@ npm run serve
 Now go is running on port 8081.
 
 
-> The web application will be available at the showed host. A Plugin for bypassing CORS may be necessary.
+> The web application will be available at localhost:8081 if the port is not being used.
