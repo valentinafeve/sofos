@@ -1,0 +1,1 @@
+/home/vale/Projects/sofos/go_chi/sofos/main/cockroach-data/cockroach-temp355715236

@@ -5,7 +5,7 @@
         <div class="form-group">
           <input class="form-input" v-model="domain" type="text" placeholder="domain.com">
         </div>
-        <button class="g-btn g-btn--purple radius-md" @click="search_domain">Search</button>
+        <button class="btn btn-primary" @click="search_domain">Search</button>
       </div>
       <div class="loading loading-lg showable" :class="{visible : isLoading}">
       </div>
@@ -206,16 +206,8 @@ export default {
 .search_domain .panel_info .data{
   display: block;
 }
-
-.search_domain .subpanel .card{
+.search_domain .card{
   padding: 20px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  border-radius: 20px;
-  -webkit-box-shadow: 0px 0px 13px -4px rgba(153,153,153,1);
-  -moz-box-shadow: 0px 0px 13px -4px rgba(153,153,153,1);
-  box-shadow: 0px 0px 13px -4px rgba(153,153,153,1);
-
 }
 .search_domain .subpanel .line{
   position: relative;

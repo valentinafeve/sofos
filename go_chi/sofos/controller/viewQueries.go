@@ -1,16 +1,25 @@
 package controller
 
 import(
+  "log"
+
   "../models"
+  "../database"
 )
 
-func ViewedDomains() models.History{
+func ViewedDomains() (models.History, error){
 
   var history models.History
   var queries []models.Query
 
-  queries = models.GetQueries()
-  history.Queries = queries
+  queries, err := database.GetQueries()
 
-  return history
+  if (err == nil){
+    history.Queries = queries
+  } else {
+    log.Printf("Data from HistoryQueries wasn't read succesfully.")
+    return history, err
+  }
+
+  return history, nil
 }

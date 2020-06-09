@@ -3,12 +3,14 @@ package controller
 import (
   "net"
   "fmt"
+  "log"
   "../models"
+  "../database"
   "./utils"
 )
 
 // When a user asks for information about the domain, QueryDomain executes both, web scrapping and API querying in order to return specific information.
-func QueryDomain(domain string) models.DomainInformation{
+func QueryDomain(domain string) (models.DomainInformation, error){
 
   // Creating a structure for saving information
   var domainInformation models.DomainInformation
@@ -18,16 +20,16 @@ func QueryDomain(domain string) models.DomainInformation{
   _, err := net.LookupHost(domain)
   if err != nil {
     domainInformation.Is_down = true
-    return domainInformation
+    return domainInformation, nil
   }
 
   // Reading Json from the API
-  println("Reading json...")
+  log.Printf("Reading json...")
   jsonResponse := utils.ReadJson(domain)
   fmt.Println(jsonResponse)
 
   // Loading data into structure
-  println("Loading data from json...")
+  log.Printf("Loading data from json...")
 
   // load_from_json gets the response given after the query to the API and saves the domainInformation in the global info variable.
   for _, element := range jsonResponse.Endpoints{
@@ -42,18 +44,20 @@ func QueryDomain(domain string) models.DomainInformation{
 
 
   // Reading page from web
-  println("Reading page from web...")
+  log.Printf("Reading page from web...")
   page := utils.ReadWebpage(domain)
 
   // Loading data into structure
-  println("Loading data from web...")
-  utils.LoadFromWeb(page, domain)
+  log.Printf("Loading data from web...")
+  logo, title := utils.LoadFromWeb(page, domain)
+  domainInformation.Logo = logo
+  domainInformation.Title = title
 
   // Calculating lowest SSL grade
   utils.CalcLowestGrade(&domainInformation)
 
   // Whois for each server
-  println("Loading information from each server...")
+  log.Printf("Loading information from each server...")
   var servers [](models.Server)
   for _, server := range domainInformation.Servers {
     s := utils.WhoIs(server.Address)
@@ -67,18 +71,19 @@ func QueryDomain(domain string) models.DomainInformation{
   }
   // Saving info into structure
   domainInformation.Servers = servers
-  //
-  // ssl_latest := utils.GetLatestGrade(domain)
-  // information.Previous_SSL_grade = ssl_latest
-  //
-  // // Check if there are new servers
-  // println("Checking if servers have changed.")
-  // cr_queries.Check_if_changed(&information, domain)
-  //
-  // // Saving query into database
-  // println("Saving query in database.")
-  // cr_queries.Save_query(information, domain)
+
+  // Getting latest SSL Grade from the database
+  ssl_latest := database.GetLatestGrade(domain)
+  domainInformation.Previous_SSL_grade = ssl_latest
+
+  // Check if there are new servers
+  log.Printf("Checking if servers have changed.")
+  database.CheckIfChanged( &domainInformation, domain)
+
+  // Saving query into database
+  log.Printf("Saving query in database.")
+  database.SaveQuery( &domainInformation, domain)
 
   // Returning obteined information
-  return domainInformation
+  return domainInformation, nil
 }
