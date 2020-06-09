@@ -1,6 +1,6 @@
 # Sofos
 
-[![Watch the video](https://i.imgur.com/TuE78so.png)](https://youtu.be/sGA_f3I-WNw)
+[![Watch the video](https://i.ibb.co/NyLnxj4/Untitled-design.png)](https://www.youtube.com/watch?v=qmxDSp5-WMk)
 
 ## Running database
 
