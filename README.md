@@ -15,7 +15,7 @@ Now cockroach is running on port 8080.
 
 Running sql shell
 ```bash
-cockroach sql --insecure 
+cockroach sql --insecure
 ```
 
 ## Setting Database
@@ -31,7 +31,7 @@ CREATE DATABASE sofos;
 SET DATABASE = sofos;
 ```
 
- 
+
 ```sql
 CREATE TABLE DomainInformation (
     SSL_grade VARCHAR(5),
@@ -47,13 +47,13 @@ CREATE TABLE HistoryQueries (
     Latest_query TIMESTAMP
   );
 ```
- 
+
 ```sql
 CREATE TABLE RelatedServers (
     Domain VARCHAR(50),
     Server VARCHAR(50)
   );
-``` 
+```
 
 ```sql
 CREATE USER IF NOT EXISTS sofos_u;
@@ -61,9 +61,9 @@ CREATE USER IF NOT EXISTS sofos_u;
 
 
 ```sql
-GRANT SELECT ON history_queries TO sofos_u;
-GRANT ALL ON history_queries TO sofos_u;
-GRANT ALL ON domain_info TO sofos_u;
+GRANT ALL ON historyQueries TO sofos_u;
+GRANT ALL ON DomainInformation TO sofos_u;
+GRANT ALL ON RelatedServers TO sofos_u;
 ```
 
 ## Running Go Server
@@ -110,4 +110,4 @@ npm run serve
 Now go is running on port 8081.
 
 
-> The web application will be available at the showed host. A Plugin for bypassing CORS may be necessary. 
+> The web application will be available at the showed host. A Plugin for bypassing CORS may be necessary.

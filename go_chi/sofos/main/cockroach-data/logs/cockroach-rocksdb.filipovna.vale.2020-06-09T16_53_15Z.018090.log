@@ -448,3 +448,9 @@ I200609 18:24:16.032939 17 storage/engine/rocksdb.go:120  (Original Log Time 202
 I200609 18:24:16.032967 17 storage/engine/rocksdb.go:120  (Original Log Time 2020/06/09-13:24:16.032813) EVENT_LOG_v1 {"time_micros": 1591727056032790, "job": 5, "event": "compaction_finished", "compaction_time_micros": 36058, "compaction_time_cpu_micros": 29756, "output_level": 6, "num_output_files": 1, "total_output_size": 665284, "num_input_records": 11725, "num_output_records": 4721, "num_subcompactions": 1, "output_compression": "Snappy", "num_single_delete_mismatches": 0, "num_single_delete_fallthrough": 0, "lsm_state": [0, 0, 0, 0, 0, 0, 1]}
 I200609 18:24:16.033330 17 storage/engine/rocksdb.go:120  EVENT_LOG_v1 {"time_micros": 1591727056033301, "job": 5, "event": "table_file_deletion", "file_number": 11}
 I200609 18:24:16.033490 17 storage/engine/rocksdb.go:120  EVENT_LOG_v1 {"time_micros": 1591727056033475, "job": 5, "event": "table_file_deletion", "file_number": 9}
+I200609 19:00:20.681232 101063 storage/engine/rocksdb.go:120  bloom filter utility:    -nan%
+I200609 19:00:20.685464 101063 storage/engine/rocksdb.go:120  [db/db_impl.cc:392] Shutdown: canceling all background work
+I200609 19:00:20.699023 101063 storage/engine/rocksdb.go:120  [db/db_impl.cc:565] Shutdown complete
+I200609 19:00:20.715028 101063 storage/engine/rocksdb.go:120  bloom filter utility:    16.2%
+I200609 19:00:20.717647 101063 storage/engine/rocksdb.go:120  [db/db_impl.cc:392] Shutdown: canceling all background work
+I200609 19:00:20.737197 101063 storage/engine/rocksdb.go:120  [db/db_impl.cc:565] Shutdown complete
