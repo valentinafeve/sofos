@@ -59,7 +59,7 @@
               <div class="title"><p>Logo</p></div>
               <div v-if="info.Logo">
                 <div>
-                  
+
                 </div>
                 <img :src="info.Logo" alt="Logo is not available">
 
@@ -159,7 +159,8 @@ export default {
       this.visiblePanel = false;
       this.failedStatus = false;
       var thisa = this;
-      axios.get(GOSERVER+'/query_domain?domain='+this.domain)
+
+      axios.get(process.env.VUE_APP_GOSERVER+'/querydomain?domain='+this.domain, { crossdomain: true })
       .then(function (response) {
         thisa.info = response.data;
         thisa.isLoading = false;
@@ -180,7 +181,7 @@ export default {
         // Showing error message
         thisa.failedStatus = true;
         thisa.isLoading = false;
-        thisa.message = "Server is not responding, check your connection."
+        thisa.message = "Check your connection."
       })
     }
   }

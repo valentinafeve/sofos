@@ -2,6 +2,8 @@ package models
 
 import (
   "os"
+  "database/sql"
+  "fmt"
 )
 
 type History struct{
@@ -10,15 +12,19 @@ type History struct{
 
 func GetQueries() []Query {
 
+  queries := make([]Query, 0)  
+
   db, err := sql.Open("postgres","postgresql://"+os.Getenv("SOFOS_DATABASE")+"@"+os.Getenv("SOFOS_HOSTNAME")+":26257/sofos?sslmode=disable")
   if err != nil {
     println("Error connectiong to the database")
     println(err)
   }
+
   rows, err := db.Query("SELECT * FROM HistoryQueries ORDER BY latest_query DESC")
   if err != nil {
     fmt.Println(err)
   }
+
   defer rows.Close()
   for rows.Next() {
     var domain string
@@ -26,11 +32,15 @@ func GetQueries() []Query {
     if err := rows.Scan(&domain, &latest_query); err != nil {
         fmt.Println(err)
     }
-    query := info.Query{
+    query := Query{
       Domain : domain,
       Time : latest_query,
     }
+
     queries = append(queries, query)
+
   }
+
+  return queries
 
 }

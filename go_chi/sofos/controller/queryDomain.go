@@ -35,7 +35,9 @@ func QueryDomain(domain string) models.DomainInformation{
       Address : element.IpAddress,
       SSL_grade : element.Grade,
     }
-    (*domainInformation).Servers = append(domainInformation.Servers, server)
+
+    domainInformation.Servers = append(domainInformation.Servers, server)
+
   }
 
 
@@ -57,6 +59,8 @@ func QueryDomain(domain string) models.DomainInformation{
     s := utils.WhoIs(server.Address)
     if len(s) > 10 {
       serverCountry, serverOwner := utils.LoadFromWhoIs(s)
+      server.Country = serverCountry
+      server.Owner = serverOwner
       servers = append(servers, server)
     } else{
     }

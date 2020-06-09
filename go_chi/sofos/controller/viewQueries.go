@@ -1,7 +1,6 @@
 package controller
 
 import(
-  "fmt"
   "../models"
 )
 
@@ -11,6 +10,7 @@ func ViewedDomains() models.History{
   var queries []models.Query
 
   queries = models.GetQueries()
-  
+  history.Queries = queries
+
   return history
 }

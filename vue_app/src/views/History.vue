@@ -41,7 +41,7 @@ export default {
       this.failedStatus = false
       var thisa = this;
       this.showTable = false
-      axios.get(GOSERVER+'/viewed_domains')
+      axios.get(process.env.VUE_APP_GOSERVER+'/vieweddomains')
       .then(function (response) {
         thisa.history = response.data;
         if (thisa.history.Queries != null ){
