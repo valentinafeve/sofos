@@ -28,7 +28,7 @@ CREATE DATABASE sofos;
 ```
 
 ```sql
-SET SATABASE = sofos;
+SET DATABASE = sofos;
 ```
 
  
