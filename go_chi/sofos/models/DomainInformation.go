@@ -2,9 +2,9 @@ package models
 
 type DomainInformation struct {
   Servers []Server
-  Servers_changed bool
-  SSL_grade string
-  Previous_SSL_grade string
+  ServersChanged bool
+  SSLGrade string
+  PreviousSSLGrade string
   Logo string
   Title string
   Is_down bool

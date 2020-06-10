@@ -5,7 +5,7 @@ import(
 )
 
 // Calc SSl grade given a letter
-func calc_SSL_val (letter string) int{
+func calcSSLVal (letter string) int{
   fc := letter[0]
   val := 1000-int(fc)*3
   if len(letter) > 1{
@@ -24,18 +24,18 @@ func calc_SSL_val (letter string) int{
 
 // Calc and set lowest SSL grade given all the informatio
 func CalcLowestGrade(information *models.DomainInformation){
-  min_val := 10000
-  var min_grade string
+  minVal := 10000
+  var minGrade string
   for _, element := range (*information).Servers {
-    ssl_grade := element.SSL_grade
-    if len(ssl_grade) < 1 {
+    sslGrade := element.SSLGrade
+    if len(sslGrade) < 1 {
       continue
     }
-    ssl_val := calc_SSL_val(ssl_grade)
-    if ssl_val < min_val{
-      min_val = ssl_val
-      min_grade = ssl_grade
+    sslVal := calcSSLVal(sslGrade)
+    if sslVal < minVal{
+      minVal = sslVal
+      minGrade = sslGrade
     }
   }
-  (*information).SSL_grade = min_grade
+  (*information).SSLGrade = minGrade
 }

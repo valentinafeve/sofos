@@ -35,7 +35,7 @@ func QueryDomain(domain string) (models.DomainInformation, error){
   for _, element := range jsonResponse.Endpoints{
     server := models.Server{
       Address : element.IpAddress,
-      SSL_grade : element.Grade,
+      SSLGrade : element.Grade,
     }
 
     domainInformation.Servers = append(domainInformation.Servers, server)
@@ -73,8 +73,12 @@ func QueryDomain(domain string) (models.DomainInformation, error){
   domainInformation.Servers = servers
 
   // Getting latest SSL Grade from the database
-  ssl_latest := database.GetLatestGrade(domain)
-  domainInformation.Previous_SSL_grade = ssl_latest
+  sslLatest, err := database.GetLatestGrade(domain)
+  if (err != nil){
+    log.Panic(err)
+    log.Panic("Error when trying to read latest SSL status.")
+  }
+  domainInformation.PreviousSSLGrade = sslLatest
 
   // Check if there are new servers
   log.Printf("Checking if servers have changed.")

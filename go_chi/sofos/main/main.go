@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -17,6 +16,7 @@ func queryDomain(w http.ResponseWriter, r *http.Request) {
 
 	// TO-DO: Check parameters and data validation
 
+
 	// Getting domain from params in get
 	domain := r.URL.Query().Get("domain")
 	if (len(domain) < 3){
@@ -26,8 +26,6 @@ func queryDomain(w http.ResponseWriter, r *http.Request) {
 
 	// More filters
 	if strings.ContainsAny(domain, "+,|!\"£$%&/()=?^*ç°§;:_>][@ "){
-
-		// TO-DO: Raise error
 		http.Error(w, http.StatusText(400), 400)
 		return
 	}
@@ -79,11 +77,11 @@ func main() {
 	r.Get("/vieweddomains", viewedDomains)
 
 	// Starting server
-	fmt.Println("Starting server on port :3000")
+	log.Println("Starting server on port :3000")
 	err := http.ListenAndServe(":3000", r)
 
 	if err != nil {
-		fmt.Println("ListenAndServe:", err)
+		log.Println("ListenAndServe:", err)
 	} else {
 		log.Fatal(err)
 	}
