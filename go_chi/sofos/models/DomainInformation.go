@@ -6,8 +6,8 @@ type DomainInformation struct {
   SSLGrade string
   PreviousSSLGrade string
   Logo string
-  Title string
-  Is_down bool
+  Title  string
+  IsDown bool
   Status string
   First bool
 }

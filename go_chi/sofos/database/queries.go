@@ -54,7 +54,7 @@ func SaveQuery(information *models.DomainInformation, domain string) (error){
   sslGrade := information.SSLGrade
   title := information.Title
   isDown := "false"
-  if information.Is_down {
+  if information.IsDown {
       isDown = "true"
     }
 
