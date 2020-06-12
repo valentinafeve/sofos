@@ -57,6 +57,7 @@ CREATE TABLE RelatedServers (
 
 ```sql
 CREATE USER IF NOT EXISTS sofos_u;
+ALTER USER sofos_u WITH PASSWORD 'g7D239Asn1';
 ```
 
 
