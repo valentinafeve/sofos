@@ -34,9 +34,9 @@ SET DATABASE = sofos;
 
 ```sql
 CREATE TABLE DomainInformation (
-    SSL_grade VARCHAR(5),
+    SSLGrade VARCHAR(5),
     Title VARCHAR(100),
-    Is_down BOOLEAN,
+    IsDown BOOLEAN,
     Domain VARCHAR(50)
   );
 ```
@@ -44,7 +44,7 @@ CREATE TABLE DomainInformation (
 ```sql
 CREATE TABLE HistoryQueries (
     Domain VARCHAR(50),
-    Latest_query TIMESTAMP
+    LatestQuery TIMESTAMP
   );
 ```
 
