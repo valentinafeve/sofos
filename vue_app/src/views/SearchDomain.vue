@@ -5,7 +5,7 @@
         <div class="form-group">
           <input class="form-input" v-model="domain" type="text" placeholder="domain.com">
         </div>
-        <button class="btn btn-primary" @click="search_domain">Search</button>
+        <button v-if="validDomain" class="btn btn-primary" @click="search_domain">Search</button>
       </div>
       <div class="loading loading-lg showable" :class="{visible : isLoading}">
       </div>
@@ -116,8 +116,8 @@
                 <p>SSL grade</p>
               </div>
               <div class="content">
-                <div v-if="server.SSL_grade">
-                  <p>{{server.SSL_grade}}</p>
+                <div v-if="server.SSLGrade">
+                  <p>{{server.SSLGrade}}</p>
                 </div>
                 <div v-else>
                   <div class="text_message">
@@ -151,6 +151,15 @@ export default {
     }
   },
   computed:{
+    validDomain(){
+      let re = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/g;
+      if(re.exec(this.domain) != null ){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
   },
   methods:{
     search_domain(){
@@ -159,6 +168,10 @@ export default {
       this.visiblePanel = false;
       this.failedStatus = false;
       var thisa = this;
+
+      if(!this.validDomain){
+        return
+      }
 
       axios.get(process.env.VUE_APP_GOSERVER+'/querydomain?domain='+this.domain, { crossdomain: true })
       .then(function (response) {
@@ -181,7 +194,7 @@ export default {
         // Showing error message
         thisa.failedStatus = true;
         thisa.isLoading = false;
-        thisa.message = "Check your connection."
+        thisa.message = "Check your connection or try again later."
       })
     }
   }

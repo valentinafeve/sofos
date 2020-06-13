@@ -9,6 +9,7 @@ import (
   "fmt"
   "net/http"
   "encoding/json"
+  "log"
 )
 
 // Whois function send the domain to a random selected server. Returns information about it.
@@ -21,12 +22,12 @@ func WhoIs(domain string) string{
   address :=  whoIsServer+":43"
   connection, err := net.Dial("tcp",address)
    if err != nil {
-       fmt.Println(err)
+       log.Panic(err)
    }
 
   defer connection.Close()
   if err != nil {
-      fmt.Println(err)
+      log.Panic(err)
   }
 
   // The domain which we'll query
@@ -37,7 +38,8 @@ func WhoIs(domain string) string{
   result, err := ioutil.ReadAll(connection)
 
   if err != nil {
-    fmt.Println("Error reading data from server, check your connection.")
+    log.Panic(err)
+    log.Panicf("Error reading data from server, check your connection.")
   }
 
   s := string(result)
@@ -87,7 +89,6 @@ func ReadWebpage(domain string) string{
   url := "https://"+domain
   resp, err := http.Get(url)
   if err != nil {
-    println("Error while resolving "+url)
     url = "http://"+domain
     resp_, err_ := http.Get(url)
     resp = resp_
@@ -123,7 +124,7 @@ func ReadJson(domain string) JsonResponse{
     if cont > 3 || info_obtained {
       break;
     }
-    var url = "https://api.ssllabs.com/api/v3/analyze?host="+domain+"&all=on&grade"
+    var url = "https://api.ssllabs.com/api/v3/analyze?host="+domain+"&all=done&grade"
     resp, _ := http.Get(url)
     bytes, _ := ioutil.ReadAll(resp.Body)
     json.Unmarshal([]byte(string(bytes)), &jsonResponse)

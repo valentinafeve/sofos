@@ -70,6 +70,7 @@ func QueryDomain(domain string) (models.DomainInformation, error) {
 	domainInformation.Servers = servers
 
 	// Getting latest SSL Grade from the database
+	log.Printf("Getting latest SSL grade")
 	sslLatest, err := database.GetLatestGrade(domain)
 	if err != nil {
 		log.Panic(err)

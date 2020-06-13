@@ -3,7 +3,6 @@ package database
 import (
   "database/sql"
   _ "github.com/lib/pq"
-  "os"
   "log"
 
   "../models"
@@ -11,8 +10,8 @@ import (
 
 func GetLatestGrade(domain string) (string, error){
 
-  db, err := sql.Open("postgres","postgresql://sofos_u@"+os.Getenv("SOFOS_HOSTNAME")+":26257/sofos?sslmode=disable")
-  ssl_grade_ := ""
+  db, err := sql.Open("postgres","postgresql://sofos_u@localhost:26257/sofos?ssl=true&sslmode=require&sslrootcert=certs/ca.crt&sslkey=certs/client.sofos_u.key&sslcert=certs/client.sofos_u.crt")
+  sslGrade_ := ""
   if err != nil {
     log.Panic(err)
     log.Panic("Error when trying to establlish a connection to the database")
@@ -23,20 +22,20 @@ func GetLatestGrade(domain string) (string, error){
   rows, err := db.Query("SELECT SSLGrade FROM DomainInformation WHERE Domain='"+domain+"'")
   if err != nil {
     log.Panic(err)
-    log.Panic("Error when trying to query data from the database")
+    log.Panicf("Error when trying to query data from the database")
     return "", err
   }
   defer rows.Close()
   for rows.Next() {
-    var ssl_grade string
-    if err := rows.Scan(&ssl_grade); err != nil {
+    var sslGrade string
+    if err := rows.Scan(&sslGrade); err != nil {
       log.Panic(err)
-      log.Panic("Error when trying to read data from the database")
+      log.Panicf("Error when trying to read data from the database")
       return "", err
     }
-    ssl_grade_ = ssl_grade
+    sslGrade_ = sslGrade
   }
-  return ssl_grade_, nil
+  return sslGrade_, nil
 }
 
 // Save the query in the database
@@ -44,10 +43,10 @@ func SaveQuery(information *models.DomainInformation, domain string) (error){
 
   log.Printf("Saving information in the database...")
 
-  db, err := sql.Open("postgres","postgresql://sofos_u@"+os.Getenv("SOFOS_HOSTNAME")+":26257/sofos?sslmode=disable")
+  db, err := sql.Open("postgres","postgresql://sofos_u@localhost:26257/sofos?ssl=true&sslmode=require&sslrootcert=certs/ca.crt&sslkey=certs/client.sofos_u.key&sslcert=certs/client.sofos_u.crt")
   if err != nil {
     log.Panic(err)
-    log.Panic("Error when trying to establlish a connection to the database")
+    log.Panicf("Error when trying to establlish a connection to the database")
     return err
   }
 
@@ -64,7 +63,7 @@ func SaveQuery(information *models.DomainInformation, domain string) (error){
   _, err = db.Exec(query);
   if err != nil {
     log.Panic(err)
-    log.Panic("Error when trying to insert information about the domain.")
+    log.Panicf("Error when trying to insert information about the domain.")
     return err
   }
 
@@ -75,7 +74,7 @@ func SaveQuery(information *models.DomainInformation, domain string) (error){
   _, err = db.Exec(query);
   if err != nil {
     log.Panic(err)
-    log.Panic("Error when trying to insert information about the query.")
+    log.Panicf("Error when trying to insert information about the query.")
     return err
   }
   query = `DELETE FROM RelatedServers WHERE domain='`
@@ -84,7 +83,7 @@ func SaveQuery(information *models.DomainInformation, domain string) (error){
   _, err = db.Exec(query);
   if err != nil {
     log.Panic(err)
-    log.Panic("Error when trying to delete information about the related servers.")
+    log.Panicf("Error when trying to delete information about the related servers.")
     return err
   }
 
@@ -95,7 +94,7 @@ func SaveQuery(information *models.DomainInformation, domain string) (error){
     _, err = db.Exec(query);
     if err != nil {
       log.Panic(err)
-      log.Panic("Error when trying to insert information about the related servers.")
+      log.Panicf("Error when trying to insert information about the related servers.")
       return err
     }
 
@@ -108,10 +107,10 @@ func SaveQuery(information *models.DomainInformation, domain string) (error){
 // Check if servers changed querying database.
 func CheckIfChanged(information *models.DomainInformation, domain string) (error){
   (*information).First = true
-  db, err := sql.Open("postgres","postgresql://sofos_u@"+os.Getenv("SOFOS_HOSTNAME")+":26257/sofos?sslmode=disable")
+  db, err := sql.Open("postgres","postgresql://sofos_u@localhost:26257/sofos?ssl=true&sslmode=require&sslrootcert=certs/ca.crt&sslkey=certs/client.sofos_u.key&sslcert=certs/client.sofos_u.crt")
   if err != nil {
     log.Panic(err)
-    log.Panic("Error when trying to insert information about the domain.")
+    log.Panicf("Error when trying to insert information about the domain.")
     return err
   }
 
@@ -126,7 +125,7 @@ func CheckIfChanged(information *models.DomainInformation, domain string) (error
     var server string
     if err := rows.Scan(&server); err != nil {
       log.Panic(err)
-      log.Panic("Error when trying to read data from RelatedServers.")
+      log.Panicf("Error when trying to read data from RelatedServers.")
       return err
     }
     olds := 0
@@ -151,10 +150,10 @@ func GetQueries() ([]models.Query, error){
   queries := make([]models.Query, 0)
 
   log.Printf("Establishing connection between sofos and the database.")
-  db, err := sql.Open("postgres","postgresql://sofos_u@"+os.Getenv("SOFOS_HOSTNAME")+":26257/sofos?sslmode=disable")
+  db, err := sql.Open("postgres","postgresql://sofos_u@localhost:26257/sofos?ssl=true&sslmode=require&sslrootcert=certs/ca.crt&sslkey=certs/client.sofos_u.key&sslcert=certs/client.sofos_u.crt")
   if err != nil {
     log.Panic(err)
-    log.Panic("Error when trying to establlish a connection to the database")
+    log.Panicf("Error when trying to establlish a connection to the database")
     return nil, err
   }
   log.Printf("Connection established.")
@@ -162,7 +161,7 @@ func GetQueries() ([]models.Query, error){
   rows, err := db.Query("SELECT * FROM HistoryQueries ORDER BY latestQuery DESC")
   if err != nil {
     log.Panic(err)
-    log.Panic("Error when trying to read data from HistoryQueries.")
+    log.Panicf("Error when trying to read data from HistoryQueries.")
     return nil, err
   }
 
@@ -172,8 +171,8 @@ func GetQueries() ([]models.Query, error){
     var domain string
     var latest_query string
     if err := rows.Scan(&domain, &latest_query); err != nil {
-      log.Panic("Error when trying to read data from HistoryQueries.")
       log.Panic(err)
+      log.Panicf("Error when trying to read data from HistoryQueries.")
       return nil, err
     }
     query := models.Query{
